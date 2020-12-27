@@ -8,6 +8,7 @@ PKG_LICENSE:=AGPL-3.0
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/lisaac/luci-lib-docker.git
+PKG_MIRROR_HASH:=2ae79a80856a29e86a77744fb226aec35d1776d922c9bb06d2b602735ebd71d3
 PKG_SOURCE_VERSION:=$(PKG_VERSION)
 
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)
@@ -22,7 +23,7 @@ define Package/$(PKG_NAME)
 	SUBMENU:=6. Libraries
 	TITLE:=Docker Engine API for LuCI
 	PKGARCH:=all
-	DEPENDS:=+luci-lib-jsonc
+	DEPENDS:=@(aarch64||arm||x86_64) @HAS_FPU +luci-lib-jsonc
 endef
 
 define Package/$(PKG_NAME)/description
