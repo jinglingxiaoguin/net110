@@ -27,8 +27,25 @@ define Device/Default
   PAGESIZE := 2048
   SUBPAGESIZE := 512
   BLOCKSIZE := 128k
+<<<<<<< HEAD
   IMAGES := sysupgrade.tar
   IMAGE/sysupgrade.tar := sysupgrade-tar
+=======
+  IMAGES := sysupgrade.bin factory.bin
+  IMAGE/sysupgrade.bin := sysupgrade-tar | append-metadata
+  IMAGE/factory.bin := append-ubi
+endef
+
+define Device/cisco_on100
+  DEVICE_TITLE := Cisco Systems ON100
+  DEVICE_DTS := kirkwood-on100
+  DEVICE_PACKAGES := kmod-i2c-mv64xxx
+  KERNEL_SIZE := 5376k
+  KERNEL_IN_UBI := 0
+  UBINIZE_OPTS := -E 5
+  IMAGE/factory.bin := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-ubi
+  BOARD_NAME := on100
+>>>>>>> 47f9294dbbf251b325303c8e1eca430e61b0af5b
 endef
 
 define Device/dockstar
