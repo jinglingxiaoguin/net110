@@ -1425,7 +1425,7 @@
 +
 --- a/include/linux/netdevice.h
 +++ b/include/linux/netdevice.h
-@@ -1779,6 +1779,11 @@ struct net_device {
+@@ -1780,6 +1780,11 @@ struct net_device {
  /*
   * Cache lines mostly used on receive path (including eth_type_trans())
   */
@@ -1437,7 +1437,7 @@
  	/* Interface address info used in eth_type_trans() */
  	unsigned char		*dev_addr;
  
-@@ -3667,6 +3672,19 @@ static inline void netif_tx_unlock_bh(st
+@@ -3677,6 +3682,19 @@ static inline void netif_tx_unlock_bh(st
  	}						\
  }
  
@@ -1761,7 +1761,7 @@
  
  /**
   *	skb_panic - private function for out-of-line support
-@@ -620,6 +701,28 @@ void skb_release_head_state(struct sk_bu
+@@ -624,6 +705,28 @@ void skb_release_head_state(struct sk_bu
  		WARN_ON(in_irq());
  		skb->destructor(skb);
  	}
@@ -1790,7 +1790,7 @@
  #if IS_ENABLED(CONFIG_NF_CONNTRACK)
  	nf_conntrack_put(skb_nfct(skb));
  #endif
-@@ -809,6 +912,10 @@ static void __copy_skb_header(struct sk_
+@@ -813,6 +916,10 @@ static void __copy_skb_header(struct sk_
  	new->sp			= secpath_get(old->sp);
  #endif
  	__nf_copy(new, old, false);
@@ -1801,7 +1801,7 @@
  
  	/* Note : this field could be in headers_start/headers_end section
  	 * It is not yet because we do not want to have a 16 bit hole
-@@ -3954,6 +4061,13 @@ void __init skb_init(void)
+@@ -3970,6 +4077,13 @@ void __init skb_init(void)
  						0,
  						SLAB_HWCACHE_ALIGN|SLAB_PANIC,
  						NULL);

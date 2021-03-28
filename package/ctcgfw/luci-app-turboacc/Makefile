@@ -13,7 +13,7 @@ PKG_LICENSE:=GPLv3.0+
 
 LUCI_TITLE:=LuCI support for Flow Offload / Shortcut-FE
 LUCI_DEPENDS:=+pdnsd-alt \
-              +PACKAGE_$(PKG_NAME)_INCLUDE_shortcut-fe:kmod-fast-classifier-noload \
+              +PACKAGE_$(PKG_NAME)_INCLUDE_shortcut-fe:kmod-fast-classifier \
               +PACKAGE_$(PKG_NAME)_INCLUDE_flow-offload:kmod-ipt-offload \
               +PACKAGE_$(PKG_NAME)_INCLUDE_bbr-cca:kmod-tcp-bbr \
               +PACKAGE_$(PKG_NAME)_INCLUDE_dnsforwarder:dnsforwarder
@@ -33,7 +33,6 @@ config PACKAGE_$(PKG_NAME)_INCLUDE_flow-offload
 
 config PACKAGE_$(PKG_NAME)_INCLUDE_bbr-cca
 	bool "Include BBR CCA"
-	default n if LINUX_4_9
 	default y
 
 config PACKAGE_$(PKG_NAME)_INCLUDE_dnsforwarder

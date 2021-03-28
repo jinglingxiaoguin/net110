@@ -21,14 +21,14 @@ ifneq ($(CONFIG_SDK)$(CONFIG_PACKAGE_kmod-b43)$(CONFIG_PACKAGE_b43legacy-firmwar
   BUILD_B43_TOOLS = y
 endif
 
-tools-y += autoconf autoconf-archive automake bc bison cmake dosfstools
+tools-y += autoconf autoconf-archive automake bc bison cmake cpio dosfstools
 tools-y += e2fsprogs fakeroot findutils firmware-utils flex gengetopt
 tools-y += libressl libtool lzma m4 make-ext4fs missing-macros mkimage
 tools-y += mklibs mm-macros mtd-utils mtools padjffs2 patch-image patchelf
-tools-y += pkg-config quilt squashfskit4 sstrip ucl upx zip zlib zstd
+tools-y += pkg-config quilt squashfskit4 sstrip ucl upx xxd zip zlib zstd
 tools-$(BUILD_B43_TOOLS) += b43-tools
 tools-$(BUILD_ISL) += isl
-tools-$(BUILD_TOOLCHAIN) += expat gmp libelf mpc mpfr
+tools-$(BUILD_TOOLCHAIN) += expat gmp mpc mpfr
 tools-$(CONFIG_TARGET_apm821xx)$(CONFIG_TARGET_gemini) += genext2fs
 tools-$(CONFIG_TARGET_ar71xx) += lzma-old
 tools-$(CONFIG_TARGET_ar71xx)$(CONFIG_TARGET_ath79) += squashfs
@@ -56,7 +56,6 @@ $(curdir)/flex/compile := $(curdir)/libtool/compile
 $(curdir)/gengetopt/compile := $(curdir)/libtool/compile
 $(curdir)/gmp/compile := $(curdir)/libtool/compile
 $(curdir)/isl/compile := $(curdir)/gmp/compile
-$(curdir)/libelf/compile := $(curdir)/libtool/compile
 $(curdir)/libressl/compile := $(curdir)/pkg-config/compile
 $(curdir)/libtool/compile := $(curdir)/m4/compile $(curdir)/autoconf/compile $(curdir)/automake/compile $(curdir)/missing-macros/compile
 $(curdir)/lzma-old/compile := $(curdir)/zlib/compile
@@ -78,6 +77,7 @@ $(curdir)/squashfskit4/compile := $(curdir)/xz/compile $(curdir)/zlib/compile
 $(curdir)/upx/compile := $(curdir)/ucl/compile
 $(curdir)/wrt350nv2-builder/compile := $(curdir)/zlib/compile
 $(curdir)/zlib/compile := $(curdir)/cmake/compile
+$(curdir)/zstd/compile := $(curdir)/cmake/compile
 
 ifneq ($(HOST_OS),Linux)
   $(curdir)/squashfskit4/compile += $(curdir)/coreutils/compile
@@ -87,7 +87,7 @@ endif
 ifneq ($(CONFIG_CCACHE)$(CONFIG_SDK),)
 $(foreach tool, $(filter-out xz zstd patch pkgconf libressl cmake,$(tools-y)), $(eval $(curdir)/$(tool)/compile += $(curdir)/ccache/compile))
 tools-y += ccache
-$(curdir)/ccache/compile := $(curdir)/cmake/compile $(curdir)/zstd/compile
+$(curdir)/ccache/compile := $(curdir)/zstd/compile
 endif
 
 # in case there is no patch tool on the host we need to make patch tool a
